@@ -13,7 +13,6 @@ const Cart = (props) => {
         <div>
             <h2>Order-Summary</h2>
             <h3>Items Ordered: {props.cart.length}</h3>
-            <br />
             <p>Total: {total.toFixed(2)}</p>
             <p>Shiping: {shiping}</p>
             <p>Tax: {tax.toFixed(2)}</p>
