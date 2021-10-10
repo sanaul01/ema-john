@@ -6,8 +6,8 @@ const Cart = (props) => {
     for(const product of cart){
         total = total + product.price;
     }
-    const shiping = 15;
-    const tax = (total + shiping)*10
+    const shiping = total > 0 ?15 : 0;
+    const tax = (total + shiping)* 0.10
     const grandTotal = total + shiping + tax
     return (
         <div>
