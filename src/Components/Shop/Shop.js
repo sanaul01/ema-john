@@ -7,25 +7,28 @@ import './Shop.css';
 const Shop = () => {
     const [products, setProducts] = useState([])
     const [cart, setCart] = useState([])
-    const [displayProduct, setDisplayProduct] = useState([])
+    const [displayProducts, setDisplayProducts] = useState([])
     useEffect(()=>{
-        console.log('Product Api called')
         fetch('./products.JSON')
         .then(res => res.json())
         .then(data => {
             setProducts(data);
-            console.log('peceived product')
+            setDisplayProducts(data);
         })
     }, []);
 
     useEffect(()=>{
-        console.log('L S called')
         if(products.length){
             const savedCart = getStoredCart();
             const storedCart = [];
             for(const key in savedCart){
             const addedProduct = products.find(product => product.key=== key);
-            storedCart.push(addedProduct);
+            if(addedProduct){
+                const quantity = savedCart[key]
+                addedProduct.quantity = quantity;
+                storedCart.push(addedProduct);
+            }
+            
             }
             setCart(storedCart);
         }
@@ -38,22 +41,38 @@ const Shop = () => {
         addToDb(product.key)
     }
 
+    const handleSearch = event =>{
+        const searchText = event.target.value;
+
+        const matchedProduct = products.filter(product => product.name.includes(searchText));
+        
+        setDisplayProducts(matchedProduct);
+    }
+
     return (
-        <div className="shop-container">
-            <div className="product-container">
-                <h2>Products: {products.length}</h2>
-                {
-                    products.map(product =><Product 
-                        key={product.key}
-                        product={product}
-                        handleAddToCart={handleAddToCart}
-                        >
-                        </Product>)
-                }
+        <div>
+            <div className="search-container">
+            <input 
+            type="text" 
+            onChange={handleSearch}
+            placeholder="Search Product" />
             </div>
-            <div className="cart-container">
-                <Cart cart={cart}></Cart>
-            </div>
+            <div className="shop-container">
+                <div className="product-container">
+                    <h2>Products: {products.length}</h2>
+                    {
+                        displayProducts.map(product =><Product 
+                            key={product.key}
+                            product={product}
+                            handleAddToCart={handleAddToCart}
+                            >
+                            </Product>)
+                    }
+                </div>
+                <div className="cart-container">
+                    <Cart cart={cart}></Cart>
+                </div>
+            </div>  
         </div>
     );
 };
