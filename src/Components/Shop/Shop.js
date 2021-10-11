@@ -45,7 +45,7 @@ const Shop = () => {
         const searchText = event.target.value;
 
         const matchedProduct = products.filter(product => product.name.includes(searchText));
-        
+        // product to be rendared on the UI. 
         setDisplayProducts(matchedProduct);
     }
 
