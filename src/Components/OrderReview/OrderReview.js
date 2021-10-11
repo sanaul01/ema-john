@@ -5,6 +5,7 @@ import useProducts from '../../Hooks/useProducts';
 const OrderReview = () => {
     const [products] = useProducts();
     const [cart] = useCart(products)
+    console.log(cart)
     return (
         <div>
             <h2>{products.length}</h2>

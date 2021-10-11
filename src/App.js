@@ -7,6 +7,8 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 import Inventory from './Components/Inventory/Inventory';
 import OrderReview from './Components/OrderReview/OrderReview';
 import NotFound from './Components/NotFound/NotFound';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 
 function App() {
   return (
@@ -25,6 +27,12 @@ function App() {
           </Route>
           <Route path="/review">
             <OrderReview></OrderReview>
+          </Route>
+          <Route path="/login">
+            <Login></Login>
+          </Route>
+          <Route path="/register">
+            <Register></Register>
           </Route>
           <Route path="*">
             <NotFound></NotFound>
